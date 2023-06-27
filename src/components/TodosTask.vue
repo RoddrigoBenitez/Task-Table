@@ -60,8 +60,31 @@ function handleNewItem(text, board){
 function handleNewBoard(){
     const name = prompt('Name of the board');
     if(!!name){
-        boards.push();
+        boards.push({
+            id: crypto.randomUUID(),
+        name: name,
+        items: [],
+        });
     } 
+}
+
+const startDrag=(e, board, item)=>{
+    e.dataTransfer.setData(
+        'text/plain', 
+        JSON.stringify({boardID: board.id, itemID:item.id})
+    );
+}
+
+const onDrop=(e, dest)=>{
+    const {boardID, itemID} = JSON.parse(
+        e.dataTransfer.getData('text/plain'),
+        );
+    console.log(boardID, itemID);    
+    const originBoard = boards.find(item => item.id === boardID);
+    const originItem = originBoard.items.find(item => item.id === itemID);
+
+    dest.items.push({...originItem});
+    originBoard.items = originBoard.items.filter(item => item !== originItem);
 }
 
 </script>
@@ -75,7 +98,13 @@ function handleNewBoard(){
 
 <div class="boards-container">
     <div class="boards">
-        <div class="board" v-for="board in boards" :key="board.id">
+        <div class="board" 
+        @drop="onDrop($event, board)" 
+        @dragover.prevent 
+        @dragenter.prevent 
+        v-for="board in boards" 
+        :key="board.id"
+        >
             <div class="view">
                 
                 {{ board.name }}
@@ -84,7 +113,12 @@ function handleNewBoard(){
             <InputNew @on-new-item="(text) => handleNewItem(text, board)" />
 
             <div class="items">
-                <div class="item" v-for="item in board.items" :key="item.id">
+                <div class="item" 
+                draggable="true"
+                @dragstart="startDrag($event, board, item)"
+                v-for="item in board.items" 
+                :key="item.id"
+                >
                     {{ item.title }}
                 </div>
             </div>
@@ -94,9 +128,30 @@ function handleNewBoard(){
 </template>
 
 <style scoped>
+nav{
+    background-color: #000;
+    
+}
+
+nav ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li a{
+    display: block;
+    padding: 10px;
+    color: #efefef;
+    text-decoration: none;
+}
+
 .boards{
     display: flex;
+    justify-content: center;
     gap: 10px;
+    margin-top: 8px;
 }
 
 .board{
