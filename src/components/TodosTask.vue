@@ -110,8 +110,7 @@ const onDrop=(e, dest)=>{
                 {{ board.name }}
             </div>
 
-            <InputNew @on-new-item="(text) => handleNewItem(text, board)" />
-
+            
             <div class="items">
                 <div class="item" 
                 draggable="true"
@@ -119,10 +118,11 @@ const onDrop=(e, dest)=>{
                 v-for="item in board.items" 
                 :key="item.id"
                 >
-                    {{ item.title }}
-                </div>
+                {{ item.title }}
             </div>
+            <InputNew @on-new-item="(text) => handleNewItem(text, board)" />
         </div>
+    </div>
     </div>
 </div>
 </template>
@@ -149,7 +149,6 @@ nav ul li a{
 
 .boards{
     display: flex;
-    justify-content: center;
     gap: 10px;
     margin-top: 8px;
 }
@@ -157,6 +156,7 @@ nav ul li a{
 .board{
     background: #efefef;
     padding: 10px;
+    border-radius: 8px;
 }
 
 .items{
@@ -170,4 +170,5 @@ nav ul li a{
     padding: 10px;
     box-sizing: border-box;
 }
+
 </style>

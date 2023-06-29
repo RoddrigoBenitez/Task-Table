@@ -18,10 +18,14 @@
 
 <template>
     <form action="."  @submit.prevent="handleSubmit">
-        <input type="text" v-model="text" name="" id="">
+        <input type="text" v-model="text" placeholder="read you task" name="" id="">
     </form>
 </template>
 
 <style scoped>
-
+    input{
+    background-color: white;
+    padding: 10px;
+    
+}
 </style>
