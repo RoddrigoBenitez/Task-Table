@@ -24,8 +24,10 @@
 
 <style scoped>
     input{
-    background-color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
     padding: 10px;
-    
+    margin: 0 0 4px;
 }
 </style>

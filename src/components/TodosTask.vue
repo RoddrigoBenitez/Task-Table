@@ -89,7 +89,7 @@ const onDrop=(e, dest)=>{
 
 </script>
 
-<template>
+<template class='body-item'>
 <nav>
     <ul>
         <li><a href="#" @click.prevent="handleNewBoard">Create Board</a></li>
@@ -128,6 +128,14 @@ const onDrop=(e, dest)=>{
 </template>
 
 <style scoped>
+.boards-container{
+background-image: url(./src/assets/abstract_background_with_flowing_particles_design_2003.jpg);
+height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
 nav{
     background-color: #000;
     
@@ -146,27 +154,35 @@ nav ul li a{
     color: #efefef;
     text-decoration: none;
 }
-
+.view{
+    color: #efefef;
+    margin: 0 0 8px;
+}
 .boards{
     display: flex;
     gap: 10px;
-    margin-top: 8px;
+    padding-top: 8px;
+    
 }
 
 .board{
-    background: #efefef;
+    background: #1D2125;
     padding: 10px;
     border-radius: 8px;
+    
 }
 
 .items{
     display: flex;
     flex-direction: column;
+    border-radius: 8px;
     gap: 5px;
+    cursor: pointer;
 }
 
 .item{
     background-color: white;
+    border-radius: 8px;
     padding: 10px;
     box-sizing: border-box;
 }
